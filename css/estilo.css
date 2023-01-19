@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+.container-principal{
+    background-color: #F3F3F3;
+    width: 375px;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 26px;
+}
+header{
+    background-color: #ffffff;
+    width: 375px;
+    height: 80px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-left: 22px;
+    padding-right: 22px;
+    position: fixed;
+    top: 0;
+    z-index:1;
+}
+header ion-icon{
+    width: 42px;
+    height: 31px;
+}
+ul{
+    margin: 80px 0;
+}
+.mensagem div{
+    background-color: #ffffff;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 8px;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    color:black;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+.mensagem.entrouSaiu div{
+    background-color: #DCDCDC;
+}
+.mensagem.reservado div{
+    background-color: #FFDEDE;
+}
+span{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+span.hora{
+    color:#AAAAAA;
+    font-weight: 400;
+}
+footer{
+    background-color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    width: 375px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 17px;
+    box-shadow: 0 -4px 6px 0 rgba(0, 0, 0, 0.05);
+    z-index:1;
+}
+footer ion-icon{
+    width: 26px;
+    height: 26px;
+}
+input{
+    width: 300px;
+    height: 30px;
+    border:none;
+}
