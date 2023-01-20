@@ -25,7 +25,7 @@ header ion-icon{
     width: 42px;
     height: 31px;
 }
-ul{
+ul.mensagens{
     margin: 80px 0;
 }
 .mensagem div{
@@ -78,7 +78,7 @@ footer ion-icon{
     width: 26px;
     height: 26px;
 }
-footer ion-icon:hover{
+header ion-icon:hover, footer ion-icon:hover{
     cursor: pointer;
     color: rgba(0, 0, 0, 0.5);
 }
@@ -87,6 +87,115 @@ input{
     height: 30px;
     border:none;
 }
-ul:last-child{
-    background-color: blue;
+input[type=text] {
+    color: #000;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
 }
+input::placeholder{ 
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+.esconde.fundo{
+    display: none;
+}
+.fundo{
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 375px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    left: auto;
+    z-index: 30;
+}
+.escondeAside{
+    width: 116px;
+    height: 100vh;
+}
+aside{
+    background-color: #ffffff;
+    width: 259px;
+    height: 667px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.topoDoAside{
+    width: 100%;
+    height: 84px;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.dadosAside{
+    width: 100%;
+    height: 36px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 18px;
+    position: relative;
+}
+.iconeTodos{
+    width: 24px;
+    height: 17px;
+    margin: 8px;
+}
+.listaDaVisibilidade, .contatos{
+    width: 100%;
+    box-sizing: border-box;
+}
+.iconeParticipantes {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-right: 12px;
+}
+.visibilidade{
+    width: 100%;
+    height: 66px;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.iconeVisibilidade {
+    width: 15px;
+    height: 20px;
+    margin-left: 10px;
+    margin-right: 12px;
+}
+.escolhido{
+    color:#28BB25;
+    width: 19px;
+    height: 15px;
+    position: absolute;
+    right: 9px;
+}
+.clicado{
+    display: none;
+}
+

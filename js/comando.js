@@ -78,4 +78,15 @@ function enviaMensagem(){
 function recarregarAPagina(mensagem){
     window.location.reload(true);
 }
+//Abrindo barra lateral
+const abreAside = () => document.querySelector(".fundo").classList.remove("esconde");
 
+const fechaAside = () => document.querySelector(".fundo").classList.add("esconde");
+//Selecionando visibilidade e contatos
+function mudaAVisibilidade(elemento){
+    const addClasse = document.querySelectorAll('.listaDaVisibilidade .escolhido');
+    for(let i = 0;i<addClasse.length;i++){
+        addClasse[i].classList.add('clicado');
+    }
+    elemento.querySelector('.escolhido').classList.remove('clicado');
+}
