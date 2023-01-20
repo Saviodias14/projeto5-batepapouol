@@ -2,7 +2,7 @@
 .container-principal{
     background-color: #F3F3F3;
     width: 375px;
-    height: 100%;
+    height: max-content;
     margin: 0 auto;
     padding-top: 26px;
 }
@@ -78,8 +78,15 @@ footer ion-icon{
     width: 26px;
     height: 26px;
 }
+footer ion-icon:hover{
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+}
 input{
     width: 300px;
     height: 30px;
     border:none;
+}
+ul:last-child{
+    background-color: blue;
 }

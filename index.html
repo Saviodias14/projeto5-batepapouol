@@ -14,35 +14,19 @@
              <img src="./img/logo 1.png" alt="Logo do bate-papo UOL">
              <ion-icon name="people"></ion-icon>
          </header>
-         <ul>
-            <li class="mensagem entrouSaiu">
-                <div><span class="hora">(09:21:45)</span> <span>João </span>entra na sala...</div>
-            </li>
-
-            <li class="mensagem">
-                <div><span class="hora">(09:21:45)</span> <span>João </span>para <span>Todos:</span> Bom dia</div>
-            </li>
-
-            <li class="mensagem">
-                <div><span class="hora">(09:21:45)</span> <span>Maria </span> para <span>João: </span>Oi João :)</div>
-            </li>
-
-            <li class="mensagem reservado">
-                <div><span class="hora">(09:21:45)</span> <span>João </span>reservadamente para <span>Maria: </span>Oi gatinha quer tc?</div>
-            </li>
-
-            <li class="mensagem entrouSaiu">
-                <div><span class="hora">(09:21:45)</span> <span>Maria </span>sai da sala...</div>
-            </li>
-         </ul>
+         <ul></ul>
     
          <footer>
             <input type="text" placeholder="Escreva aqui...">
-            <ion-icon name="paper-plane-outline"></ion-icon>
+            <ion-icon onclick="enviaMensagem()" id="campo" name="paper-plane-outline"></ion-icon>
          </footer>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    
+    
     <script src="./js/comando.js"></script>
 </body>
 </html>
