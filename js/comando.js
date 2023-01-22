@@ -52,7 +52,7 @@ function exibeMensagens(conteudo){
                  <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
              </li>`;
         }
-        else if((conteudo.data[i].type==='private_message')&&(conteudo.data[i].to === nomeDoUsuario)){
+        else if((conteudo.data[i].type==='private_message')&&(conteudo.data[i].to === nomeDoUsuario||conteudo.data[i].from === nomeDoUsuario)){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML +
              `<li class="mensagem reservado">
                  <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
@@ -74,15 +74,21 @@ function pegaOsContatos(){
 
 function exibeContatos(conteudo){
     if(conteudo.data!==vaiAtualizarOsContatos){
+        console.log(vaiAtualizarOsContatos);
+        console.log(conteudo.data);
+
+        const encontraContatoAnterior = (contato)=>{
+            if (contato===contatoEscolhido){
+                return contato;
+            }
+        }
+
+
         if(conteudoDosContatos.querySelector('.escolhoVoce p')){
             contatoEscolhido = conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML;
         }
 
-        if(conteudoDosContatos.querySelector('.escolhido')){
-            exibeTodos = conteudoDosContatos.querySelector('.escolhido');
-        }
-
-        if(exibeTodos.classList.contains('clicado') && conteudoDosContatos.querySelector('.escolhoVoce p')){
+        if(conteudoDosContatos.querySelector('.escolhido').classList.contains('clicado')){
             conteudoDosContatos.innerHTML =`
             <li class="participantes">
                 <div onclick="mudaOContato(this)" class="dadosAside todos">
@@ -93,7 +99,7 @@ function exibeContatos(conteudo){
             </li>`;
         }else{
             conteudoDosContatos.innerHTML =`
-            <li class="participantes">
+            <li class="participantes escolhoVoce">
                 <div onclick="mudaOContato(this)" class="dadosAside todos">
                     <ion-icon class="iconeTodos" name="people"></ion-icon>
                     <p>Todos</p>
@@ -126,6 +132,9 @@ function exibeContatos(conteudo){
             }
         
         } 
+        if(!conteudoDosContatos.querySelector('.escolhoVoce')){
+            conteudoDosContatos.querySelector('.escolhido').classList.remove('clicado');
+        }
         vaiAtualizarOsContatos=conteudo.data;
     }
 }
@@ -133,15 +142,24 @@ function exibeContatos(conteudo){
 
 
 // Enviando as mensagens
+const tipo = ()=>{
+    const tipoDaMensagem = document.querySelector('.listaDaVisibilidade .clicado').parentNode.querySelector('p').innerHTML;
+    if(tipoDaMensagem==='Público'){
+        return 'private_message'
+    }
+    else{
+        return 'message';
+    }
+}
 function enviaMensagem(){
     let valorDoInput = document.querySelector('input').value;
     console.log(valorDoInput);
-    nomeDoUsuario =nomeDoUsuario.replace("{|}",'');
+    nomeDoUsuario =nomeDoUsuario;
     valorDoInput={
         from: nomeDoUsuario,
-        to: "Todos",
+        to: conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML,
         text: valorDoInput,
-        type: "message"
+        type: tipo()
     }
     console.log(valorDoInput);
     const mensagemEnviada = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', valorDoInput);
