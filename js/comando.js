@@ -28,6 +28,7 @@ function atualizacao(){
 }
 //Funções para buscar as mensagens do API de 3 em 3 segundos
 
+inicioDasMensagens();
 setInterval(inicioDasMensagens,3000);
 function inicioDasMensagens(){
     const mensagensPromise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -38,11 +39,12 @@ function inicioDasMensagens(){
 function exibeMensagens(conteudo){
     const condicaoDeAtualizacao = conteudoDasMensagens.innerHTML;
     conteudoDasMensagens.innerHTML = '';
+    console.log(conteudo.data);
     for(let i = 0; i<conteudo.data.length;i++){
         if(conteudo.data[i].type==="status"){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML + 
              `<li class="mensagem entrouSaiu">
-                 <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>entra na sala...</div>
+                 <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>${conteudo.data[i].text}</div>
              </li>`;
     
         }
@@ -63,8 +65,9 @@ function exibeMensagens(conteudo){
         document.querySelector('li:last-child').scrollIntoView();
     }
 }
-//Atualiza a lista de contatos na sidebar de 3 em 3 segundos
-setInterval(pegaOsContatos,3000);
+//Atualiza a lista de contatos na sidebar de 10 em 10 segundos
+pegaOsContatos();
+setInterval(pegaOsContatos,10000);
 
 function pegaOsContatos(){
     const contatosPromise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
@@ -153,23 +156,32 @@ const tipo = ()=>{
 }
 function enviaMensagem(){
     let valorDoInput = document.querySelector('input').value;
-    console.log(valorDoInput);
-    nomeDoUsuario =nomeDoUsuario;
-    valorDoInput={
-        from: nomeDoUsuario,
-        to: conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML,
-        text: valorDoInput,
-        type: tipo()
+
+    if(valorDoInput){
+         nomeDoUsuario =nomeDoUsuario;
+         valorDoInput={
+            from: nomeDoUsuario,
+            to: conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML,
+            text: valorDoInput,
+            type: tipo()
+        }
+        const mensagemEnviada = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', valorDoInput);
+        mensagemEnviada.then(inicioDasMensagens);
+        mensagemEnviada.catch(recarregarAPagina);
+        document.querySelector('input').value="";
     }
-    console.log(valorDoInput);
-    const mensagemEnviada = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', valorDoInput);
-    mensagemEnviada.then(inicioDasMensagens);
-    mensagemEnviada.catch(recarregarAPagina);
-    document.querySelector('input').value="";
 }
+
 function recarregarAPagina(mensagem){
     window.location.reload(true);
 }
+//Enviando mensagens com o enter
+document.addEventListener("keypress", function(e) {
+    if(e.key === 'Enter') {
+        const btn = document.querySelector("#campo");
+        btn.click();
+    }
+  });
 //Abrindo barra lateral
 const abreAside = () => document.querySelector(".fundo").classList.remove("esconde");
 
@@ -193,4 +205,11 @@ function mudaOContato(elemento){
     }
     elemento.querySelector('.escolhido').classList.remove('clicado');
     elemento.querySelector('.escolhido').parentNode.classList.add('escolhoVoce');
+    let paraQuem;
+    if(tipo()==='private_message'){
+        paraQuem = "reservadamente";
+    }else{
+        paraQuem = "público";
+    }
+    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem})`
 }
