@@ -103,7 +103,7 @@ input::placeholder{
     font-size: 18px;
     line-height: 21px;
 }
-.esconde.fundo{
+.clicado,.esconde.fundo{
     display: none;
 }
 .fundo{
@@ -199,7 +199,8 @@ aside li:hover{
     position: absolute;
     right: 9px;
 }
-.clicado{
-    display: none;
+.participantes p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
