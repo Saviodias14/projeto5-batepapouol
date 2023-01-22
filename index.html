@@ -24,21 +24,23 @@
             <div onclick="fechaAside()" class="escondeAside"></div>
             <aside>
                 <div class="topoDoAside"> <p>Escolha um contato<br> para enviar mensagem:</p></div>
-                <div class="dadosAside todos">
-                    <ion-icon class="iconeTodos" name="people"></ion-icon>
-                    <p>Todos</p>
-                    <ion-icon class="escolhido" name="checkmark-sharp"></ion-icon>
-                </div>
                 <ul class="contatos">
                     <li class="participantes">
-                        <div class="dadosAside">
+                        <div onclick="mudaOContato(this)" class="dadosAside todos">
+                            <ion-icon class="iconeTodos" name="people"></ion-icon>
+                            <p>Todos</p>
+                            <ion-icon class="escolhido" name="checkmark-sharp"></ion-icon>
+                        </div>
+                    </li>
+                    <li class="participantes">
+                        <div onclick="mudaOContato(this)" class="dadosAside">
                             <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
                             <p>João</p>
                             <ion-icon class="escolhido clicado" name="checkmark-sharp"></ion-icon>
                         </div>
                     </li>
                     <li class="participantes">
-                        <div class="dadosAside">
+                        <div onclick="mudaOContato(this)" class="dadosAside">
                             <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
                             <p>João</p>
                             <ion-icon class="escolhido clicado" name="checkmark-sharp"></ion-icon>

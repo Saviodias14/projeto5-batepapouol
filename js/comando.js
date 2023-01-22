@@ -29,6 +29,7 @@ inicioDasMensagens();
 function inicioDasMensagens(){
     const mensagensPromise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     mensagensPromise.then(exibeMensagens);
+    mensagensPromise.catch(recarregarAPagina);
 }
 setInterval(inicioDasMensagens,3000);
 
@@ -85,6 +86,13 @@ const fechaAside = () => document.querySelector(".fundo").classList.add("esconde
 //Selecionando visibilidade e contatos
 function mudaAVisibilidade(elemento){
     const addClasse = document.querySelectorAll('.listaDaVisibilidade .escolhido');
+    for(let i = 0;i<addClasse.length;i++){
+        addClasse[i].classList.add('clicado');
+    }
+    elemento.querySelector('.escolhido').classList.remove('clicado');
+}
+function mudaOContato(elemento){
+    const addClasse = document.querySelectorAll('.contatos .escolhido');
     for(let i = 0;i<addClasse.length;i++){
         addClasse[i].classList.add('clicado');
     }
