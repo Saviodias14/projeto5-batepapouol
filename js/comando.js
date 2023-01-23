@@ -1,5 +1,5 @@
-let conteudoDasMensagens = document.querySelector('.mensagens');
-let conteudoDosContatos = document.querySelector('.contatos');
+const conteudoDasMensagens = document.querySelector('.mensagens');
+const conteudoDosContatos = document.querySelector('.contatos');
 let contatoEscolhido;
 let exibeTodos;
 let vaiAtualizarOsContatos;
@@ -76,7 +76,7 @@ function pegaOsContatos(){
 }
 
 function exibeContatos(conteudo){
-
+    console.log(conteudo.data);
     if(conteudoDosContatos.querySelector('.escolhoVoce p')){
         contatoEscolhido = conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML;
     }
@@ -100,7 +100,7 @@ function exibeContatos(conteudo){
             </div>
         </li>`;
     }
-
+    console.log(conteudo.data.length);
     for(let i = 0; i<conteudo.data.length;i++){
         if(contatoEscolhido===conteudo.data[i].name){
             conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 

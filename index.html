@@ -19,12 +19,12 @@
          <footer>
             <div>
                 <input data-test="input-message" type="text" placeholder="Escreva aqui...">
-                <button data-test="send-menssage" onclick="enviaMensagem()" id="campo"><ion-icon name="paper-plane-outline"></ion-icon></button> 
+                <button data-test="send-message" onclick="enviaMensagem()" id="campo"><ion-icon name="paper-plane-outline"></ion-icon></button> 
             </div>
             <p  data-test="recipient" class="paraQuem">Enviando para Todos (público)</p>
          </footer>
-         <div  class="fundo esconde">
-            <div  data-test="overlay" onclick="fechaAside()" class="escondeAside"></div>
+         <div data-test="overlay" class="fundo esconde">
+            <div onclick="fechaAside()" class="escondeAside"></div>
             <aside>
                 <div class="topoDoAside"> <p>Escolha um contato<br> para enviar mensagem:</p></div>
                 <ul class="contatos">
