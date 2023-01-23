@@ -4,10 +4,22 @@ let contatoEscolhido;
 let exibeTodos;
 let vaiAtualizarOsContatos;
 //Cadastrando o usuário
-let nomeDoUsuario = prompt('Digite o seu nome de usuário');
+let nomeDoUsuario;
 let novoNomeDoUsuario;
 
-cadastrandoUsuario();
+function enviaONomeDoUsuario(){
+    nomeDoUsuario = document.querySelector(".paginaInicial input").value;
+    document.querySelector(".paginaInicial input").value = "";
+    carregamento();
+    cadastrandoUsuario();
+}
+const inicio = document.querySelector('.paginaInicial');
+function carregamento(){
+    inicio.querySelector('input').classList.toggle('clicado');
+    inicio.querySelector('button').classList.toggle('clicado');
+    inicio.querySelector('.gifEntrando').classList.toggle('clicado');
+    inicio.querySelector('p').classList.toggle('clicado');
+}
 function cadastrandoUsuario() {
     novoNomeDoUsuario = {name: nomeDoUsuario};
     const cadastroDoUsuario = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoNomeDoUsuario);
@@ -15,9 +27,8 @@ function cadastrandoUsuario() {
     cadastroDoUsuario.catch(usuarioJaExiste);
 }
 function usuarioJaExiste(erro){
-    alert("usuário já existe");
-    nomeDoUsuario = prompt('Escolha um outro nome de usuário');
-    cadastrandoUsuario();
+    alert("usuário já existe, escolha outro nome");
+    carregamento();
 }
 function atualizaDe5Em5 (){
     setInterval(atualizacao,5000);
@@ -25,6 +36,7 @@ function atualizaDe5Em5 (){
     setInterval(inicioDasMensagens,3000);
     pegaOsContatos();
     setInterval(pegaOsContatos,10000);
+    inicio.classList.add('clicado');
 }
 function atualizacao(){
     const enviaStatus = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', novoNomeDoUsuario);
@@ -166,8 +178,11 @@ function recarregarAPagina(mensagem){
 //Enviando mensagens com o enter
 document.addEventListener("keypress", function(e) {
     if(e.key === 'Enter') {
-        const btn = document.querySelector("#campo");
-        btn.click();
+        const btn1 = document.querySelector("#campo");
+        const btn2 = document.querySelector('#entrada');
+
+        btn1.click();
+        btn2.click()
     }
   });
 //Abrindo barra lateral
