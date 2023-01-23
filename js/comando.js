@@ -27,7 +27,7 @@ function cadastrandoUsuario() {
     cadastroDoUsuario.then(atualizaDe5Em5);
     cadastroDoUsuario.catch(usuarioJaExiste);
 }
-function usuarioJaExiste(erro){
+function usuarioJaExiste(){
     alert("usuário já existe, escolha outro nome");
     carregamento();
 }
@@ -41,7 +41,7 @@ function atualizaDe5Em5 (){
     naoativar=false;
 }
 function atualizacao(){
-    const enviaStatus = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', novoNomeDoUsuario);
+    axios.post('https://mock-api.driven.com.br/api/v6/uol/status', novoNomeDoUsuario);
 }
 //Funções para buscar as mensagens do API de 3 em 3 segundos
 
@@ -58,22 +58,21 @@ function exibeMensagens(conteudo){
     for(let i = 0; i<conteudo.data.length;i++){
         if(conteudo.data[i].type==="status"){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML + 
-             `<li data-test="message" class="mensagem entrouSaiu">
-                 <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>${conteudo.data[i].text}</div>
-             </li>`;
-    
+            `<li data-test="message" class="mensagem entrouSaiu">
+                <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>${conteudo.data[i].text}</div>
+            </li>`;
         }
         else if(conteudo.data[i].type==="message"){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML + 
-             `<li data-test="message" class="mensagem">
-                 <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
-             </li>`;
+            `<li data-test="message" class="mensagem">
+                <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
+            </li>`;
         }
         else if((conteudo.data[i].type==='private_message')&&(conteudo.data[i].to === nomeDoUsuario||conteudo.data[i].from === nomeDoUsuario)){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML +
-             `<li data-test="message" class="mensagem reservado">
-                 <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
-             </li>`;
+            `<li data-test="message" class="mensagem reservado">
+                <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
+            </li>`;
         }
     }
     if(condicaoDeAtualizacao!==conteudoDasMensagens.innerHTML){
@@ -90,7 +89,6 @@ function pegaOsContatos(){
 }
 
 function exibeContatos(conteudo){
-    console.log(conteudo.data);
     if(conteudoDosContatos.querySelector('.escolhoVoce p')){
         contatoEscolhido = conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML;
     }
@@ -114,7 +112,6 @@ function exibeContatos(conteudo){
             </div>
         </li>`;
     }
-    console.log(conteudo.data.length);
     for(let i = 0; i<conteudo.data.length;i++){
         if(contatoEscolhido===conteudo.data[i].name){
             conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
@@ -150,7 +147,7 @@ function exibeContatos(conteudo){
 const tipo = ()=>{
     const tipoDaMensagem = document.querySelector('.listaDaVisibilidade .clicado').parentNode.querySelector('p').innerHTML;
     if(tipoDaMensagem==='Público'){
-        return 'private_message'
+        return 'private_message';
     }
     else{
         return 'message';
@@ -158,15 +155,13 @@ const tipo = ()=>{
 }
 function enviaMensagem(){
     let valorDoInput = document.querySelector('input').value;
-    console.log(nomeDoUsuario);
     if(valorDoInput){
          valorDoInput={
             from: nomeDoUsuario,
             to: conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML,
             text: valorDoInput,
             type: tipo()
-        }
-        console.log(valorDoInput);
+        };
         const mensagemEnviada = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', valorDoInput);
         mensagemEnviada.then(inicioDasMensagens);
         mensagemEnviada.catch(recarregarAPagina);
@@ -174,7 +169,7 @@ function enviaMensagem(){
     }
 }
 
-function recarregarAPagina(mensagem){
+function recarregarAPagina(){
     window.location.reload(true);
 }
 //Enviando mensagens com o enter
@@ -209,7 +204,7 @@ function mudaAVisibilidade(elemento){
         addClasse[i].classList.add('clicado');
     }
     elemento.querySelector('.escolhido').classList.remove('clicado');
-    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem()})`
+    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem()})`;
 
 }
 function mudaOContato(elemento){
@@ -223,5 +218,5 @@ function mudaOContato(elemento){
     }
     elemento.querySelector('.escolhido').classList.remove('clicado');
     elemento.querySelector('.escolhido').parentNode.classList.add('escolhoVoce');
-    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem()})`
+    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem()})`;
 }
