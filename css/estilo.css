@@ -28,6 +28,14 @@ header ion-icon{
 ul.mensagens{
     margin: 80px 0;
 }
+footer div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 17px;
+    box-sizing: border-box;
+}
 .mensagem div{
     background-color: #ffffff;
     width: 100%;
@@ -41,12 +49,7 @@ ul.mensagens{
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-}
-.mensagem.entrouSaiu div{
-    background-color: #DCDCDC;
-}
-.mensagem.reservado div{
-    background-color: #FFDEDE;
+    word-wrap:break-word;
 }
 span{
     font-family: 'Roboto', sans-serif;
@@ -74,14 +77,7 @@ footer{
     box-shadow: 0 -4px 6px 0 rgba(0, 0, 0, 0.05);
     z-index:1;
 }
-footer div{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 17px;
-    box-sizing: border-box;
-}
+
 .paraQuem{
     color: #505050;
     font-family: 'Roboto', sans-serif;
@@ -118,7 +114,7 @@ input{
 }
 input[type=text] {
     color: #000;
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -204,7 +200,7 @@ aside li:hover{
     max-height:fit-content;
 }
 .listaDaVisibilidade p,.contatos p{
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -250,9 +246,7 @@ aside li:hover{
     overflow: hidden;
     text-overflow:ellipsis;
 }
-.mensagem div{
-    word-wrap:break-word;
-}
+
 .paginaInicial{
     background-color: #ffffff;
     width: 100%;
@@ -309,9 +303,15 @@ aside li:hover{
 }
 .paginaInicial input[type=text] {
     color: #000;
-    font-family: 'Roboto';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
+}
+.mensagem.entrouSaiu div{
+    background-color: #DCDCDC;
+}
+.mensagem.reservado div{
+    background-color: #FFDEDE;
 }

@@ -6,6 +6,7 @@ let vaiAtualizarOsContatos;
 //Cadastrando o usuário
 let nomeDoUsuario;
 let novoNomeDoUsuario;
+let naoativar = true;
 
 function enviaONomeDoUsuario(){
     nomeDoUsuario = document.querySelector(".paginaInicial input").value;
@@ -37,6 +38,7 @@ function atualizaDe5Em5 (){
     pegaOsContatos();
     setInterval(pegaOsContatos,10000);
     inicio.classList.add('clicado');
+    naoativar=false;
 }
 function atualizacao(){
     const enviaStatus = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', novoNomeDoUsuario);
@@ -182,7 +184,9 @@ document.addEventListener("keypress", function(e) {
         const btn2 = document.querySelector('#entrada');
 
         btn1.click();
-        btn2.click()
+        if(naoativar){
+            btn2.click();
+        }
     }
   });
 //Abrindo barra lateral
