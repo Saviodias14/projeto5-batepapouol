@@ -10,9 +10,11 @@ let naoativar = true;
 
 function enviaONomeDoUsuario(){
     nomeDoUsuario = document.querySelector(".paginaInicial input").value;
-    document.querySelector(".paginaInicial input").value = "";
-    carregamento();
-    cadastrandoUsuario();
+    if(nomeDoUsuario){
+        document.querySelector(".paginaInicial input").value = "";
+        carregamento();
+        cadastrandoUsuario();
+    }
 }
 const inicio = document.querySelector('.paginaInicial');
 function carregamento(){

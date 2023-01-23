@@ -146,6 +146,12 @@ input::placeholder{
     width: 116px;
     height: 100vh;
 }
+@keyframes slide{
+    to{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
 aside{
     background-color: #ffffff;
     width: 259px;
@@ -155,6 +161,11 @@ aside{
     align-items: center;
     justify-content: flex-start;
     overflow: scroll;
+    transform: translateX(259px);
+    animation-name: slide;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+    opacity: 0;
 }
 aside li:hover{
     background-color: #AAAAAA;
@@ -257,10 +268,9 @@ aside li:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     box-sizing: border-box;
-    padding-top: 52px;
-    padding-bottom: 250px;
+    padding-top: 72px;
 }
 .paginaInicial div{
     height: 114px;
@@ -268,6 +278,7 @@ aside li:hover{
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    margin-top: 94px;
 }
 .paginaInicial img:nth-child(1){
     width: 130px;
