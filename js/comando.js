@@ -21,14 +21,17 @@ function usuarioJaExiste(erro){
 }
 function atualizaDe5Em5 (){
     setInterval(atualizacao,5000);
+    inicioDasMensagens();
+    setInterval(inicioDasMensagens,3000);
+    pegaOsContatos();
+    setInterval(pegaOsContatos,10000);
 }
 function atualizacao(){
     const enviaStatus = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', novoNomeDoUsuario);
 }
 //Funções para buscar as mensagens do API de 3 em 3 segundos
 
-inicioDasMensagens();
-setInterval(inicioDasMensagens,3000);
+
 function inicioDasMensagens(){
     const mensagensPromise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     mensagensPromise.then(exibeMensagens);
@@ -64,8 +67,7 @@ function exibeMensagens(conteudo){
     }
 }
 //Atualiza a lista de contatos na sidebar de 10 em 10 segundos
-pegaOsContatos();
-setInterval(pegaOsContatos,10000);
+
 
 function pegaOsContatos(){
     const contatosPromise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
@@ -74,67 +76,57 @@ function pegaOsContatos(){
 }
 
 function exibeContatos(conteudo){
-    if(conteudo.data!==vaiAtualizarOsContatos){
 
-        const encontraContatoAnterior = (contato)=>{
-            if (contato===contatoEscolhido){
-                return contato;
-            }
-        }
+    if(conteudoDosContatos.querySelector('.escolhoVoce p')){
+        contatoEscolhido = conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML;
+    }
 
+    if(conteudoDosContatos.querySelector('.escolhido').classList.contains('clicado')){
+        conteudoDosContatos.innerHTML =`
+        <li data-test="all" class="participantes">
+            <div onclick="mudaOContato(this)" class="dadosAside todos">
+                <ion-icon class="iconeTodos" name="people"></ion-icon>
+                <p>Todos</p>
+                <ion-icon class="escolhido clicado" name="checkmark-sharp"></ion-icon>
+            </div>
+        </li>`;
+    }else{
+        conteudoDosContatos.innerHTML =`
+        <li data-test="all" class="participantes escolhoVoce">
+            <div onclick="mudaOContato(this)" class="dadosAside todos">
+                <ion-icon class="iconeTodos" name="people"></ion-icon>
+                <p>Todos</p>
+                <ion-icon class="escolhido" name="checkmark-sharp"></ion-icon>
+            </div>
+        </li>`;
+    }
 
-        if(conteudoDosContatos.querySelector('.escolhoVoce p')){
-            contatoEscolhido = conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML;
-        }
-
-        if(conteudoDosContatos.querySelector('.escolhido').classList.contains('clicado')){
-            conteudoDosContatos.innerHTML =`
-            <li data-test="all" class="participantes">
-                <div onclick="mudaOContato(this)" class="dadosAside todos">
-                    <ion-icon class="iconeTodos" name="people"></ion-icon>
-                    <p>Todos</p>
-                    <ion-icon class="escolhido clicado" name="checkmark-sharp"></ion-icon>
+    for(let i = 0; i<conteudo.data.length;i++){
+        if(contatoEscolhido===conteudo.data[i].name){
+            conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
+            `
+            <li data-test="participant" class="participantes escolhoVoce">
+                <div onclick="mudaOContato(this)" class="dadosAside">
+                    <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
+                    <p>${conteudo.data[i].name}</p>
+                    <ion-icon data-test="check" class="escolhido" name="checkmark-sharp"></ion-icon>
                 </div>
             </li>`;
         }else{
-            conteudoDosContatos.innerHTML =`
-            <li data-test="all" class="participantes escolhoVoce">
-                <div onclick="mudaOContato(this)" class="dadosAside todos">
-                    <ion-icon class="iconeTodos" name="people"></ion-icon>
-                    <p>Todos</p>
-                    <ion-icon class="escolhido" name="checkmark-sharp"></ion-icon>
+            conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
+            `
+            <li data-test="participant" class="participantes">
+                <div onclick="mudaOContato(this)" class="dadosAside">
+                    <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
+                    <p>${conteudo.data[i].name}</p>
+                    <ion-icon data-test="check" class="escolhido clicado" name="checkmark-sharp"></ion-icon>
                 </div>
             </li>`;
         }
-
-        for(let i = 0; i<conteudo.data.length;i++){
-            if(contatoEscolhido===conteudo.data[i].name){
-                conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
-                 `
-                 <li data-test="participant" class="participantes escolhoVoce">
-                    <div onclick="mudaOContato(this)" class="dadosAside">
-                        <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
-                        <p>${conteudo.data[i].name}</p>
-                        <ion-icon data-test="check" class="escolhido" name="checkmark-sharp"></ion-icon>
-                    </div>
-                </li>`;
-            }else{
-                conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
-                 `
-                <li data-test="participant" class="participantes">
-                    <div onclick="mudaOContato(this)" class="dadosAside">
-                        <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
-                        <p>${conteudo.data[i].name}</p>
-                        <ion-icon data-test="check" class="escolhido clicado" name="checkmark-sharp"></ion-icon>
-                    </div>
-                </li>`;
-            }
         
-        } 
-        if(!conteudoDosContatos.querySelector('.escolhoVoce')){
+    } 
+    if(!conteudoDosContatos.querySelector('.escolhoVoce')){
             conteudoDosContatos.querySelector('.escolhido').classList.remove('clicado');
-        }
-        vaiAtualizarOsContatos=conteudo.data;
     }
 }
 
@@ -152,15 +144,15 @@ const tipo = ()=>{
 }
 function enviaMensagem(){
     let valorDoInput = document.querySelector('input').value;
-
+    console.log(nomeDoUsuario);
     if(valorDoInput){
-         nomeDoUsuario =nomeDoUsuario;
          valorDoInput={
             from: nomeDoUsuario,
             to: conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML,
             text: valorDoInput,
             type: tipo()
         }
+        console.log(valorDoInput);
         const mensagemEnviada = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', valorDoInput);
         mensagemEnviada.then(inicioDasMensagens);
         mensagemEnviada.catch(recarregarAPagina);

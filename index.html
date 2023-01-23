@@ -12,14 +12,14 @@
     <div class="container-principal">
          <header>
              <img src="./img/logo 1.png" alt="Logo do bate-papo UOL">
-             <ion-icon data-test="open-participants" onclick="abreAside()" name="people"></ion-icon>
+             <button data-test="open-participants" onclick="abreAside()"><ion-icon name="people"></ion-icon></button>
          </header>
          <ul class="mensagens"></ul>
     
          <footer>
             <div>
                 <input data-test="input-message" type="text" placeholder="Escreva aqui...">
-                <ion-icon data-test="send-menssage" onclick="enviaMensagem()" id="campo" name="paper-plane-outline"></ion-icon>
+                <button data-test="send-menssage" onclick="enviaMensagem()" id="campo"><ion-icon name="paper-plane-outline"></ion-icon></button> 
             </div>
             <p  data-test="recipient" class="paraQuem">Enviando para Todos (público)</p>
          </footer>
