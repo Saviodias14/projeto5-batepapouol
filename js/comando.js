@@ -10,7 +10,6 @@ let novoNomeDoUsuario;
 cadastrandoUsuario();
 function cadastrandoUsuario() {
     novoNomeDoUsuario = {name: nomeDoUsuario};
-    console.log(novoNomeDoUsuario);
     const cadastroDoUsuario = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', novoNomeDoUsuario);
     cadastroDoUsuario.then(atualizaDe5Em5);
     cadastroDoUsuario.catch(usuarioJaExiste);
@@ -39,24 +38,23 @@ function inicioDasMensagens(){
 function exibeMensagens(conteudo){
     const condicaoDeAtualizacao = conteudoDasMensagens.innerHTML;
     conteudoDasMensagens.innerHTML = '';
-    console.log(conteudo.data);
     for(let i = 0; i<conteudo.data.length;i++){
         if(conteudo.data[i].type==="status"){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML + 
-             `<li class="mensagem entrouSaiu">
+             `<li data-test="message" class="mensagem entrouSaiu">
                  <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>${conteudo.data[i].text}</div>
              </li>`;
     
         }
         else if(conteudo.data[i].type==="message"){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML + 
-             `<li class="mensagem">
+             `<li data-test="message" class="mensagem">
                  <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
              </li>`;
         }
         else if((conteudo.data[i].type==='private_message')&&(conteudo.data[i].to === nomeDoUsuario||conteudo.data[i].from === nomeDoUsuario)){
             conteudoDasMensagens.innerHTML =conteudoDasMensagens.innerHTML +
-             `<li class="mensagem reservado">
+             `<li data-test="message" class="mensagem reservado">
                  <div><span class="hora">(${conteudo.data[i].time})  </span>  <span>${conteudo.data[i].from} </span>para <span>${conteudo.data[i].to}:</span> ${conteudo.data[i].text}</div>
              </li>`;
         }
@@ -77,8 +75,6 @@ function pegaOsContatos(){
 
 function exibeContatos(conteudo){
     if(conteudo.data!==vaiAtualizarOsContatos){
-        console.log(vaiAtualizarOsContatos);
-        console.log(conteudo.data);
 
         const encontraContatoAnterior = (contato)=>{
             if (contato===contatoEscolhido){
@@ -93,7 +89,7 @@ function exibeContatos(conteudo){
 
         if(conteudoDosContatos.querySelector('.escolhido').classList.contains('clicado')){
             conteudoDosContatos.innerHTML =`
-            <li class="participantes">
+            <li data-test="all" class="participantes">
                 <div onclick="mudaOContato(this)" class="dadosAside todos">
                     <ion-icon class="iconeTodos" name="people"></ion-icon>
                     <p>Todos</p>
@@ -102,7 +98,7 @@ function exibeContatos(conteudo){
             </li>`;
         }else{
             conteudoDosContatos.innerHTML =`
-            <li class="participantes escolhoVoce">
+            <li data-test="all" class="participantes escolhoVoce">
                 <div onclick="mudaOContato(this)" class="dadosAside todos">
                     <ion-icon class="iconeTodos" name="people"></ion-icon>
                     <p>Todos</p>
@@ -115,21 +111,21 @@ function exibeContatos(conteudo){
             if(contatoEscolhido===conteudo.data[i].name){
                 conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
                  `
-                 <li class="participantes escolhoVoce">
+                 <li data-test="participant" class="participantes escolhoVoce">
                     <div onclick="mudaOContato(this)" class="dadosAside">
                         <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
                         <p>${conteudo.data[i].name}</p>
-                        <ion-icon class="escolhido" name="checkmark-sharp"></ion-icon>
+                        <ion-icon data-test="check" class="escolhido" name="checkmark-sharp"></ion-icon>
                     </div>
                 </li>`;
             }else{
                 conteudoDosContatos.innerHTML = conteudoDosContatos.innerHTML + 
                  `
-                <li class="participantes">
+                <li data-test="participant" class="participantes">
                     <div onclick="mudaOContato(this)" class="dadosAside">
                         <ion-icon class="iconeParticipantes" name="person-circle"></ion-icon>
                         <p>${conteudo.data[i].name}</p>
-                        <ion-icon class="escolhido clicado" name="checkmark-sharp"></ion-icon>
+                        <ion-icon data-test="check" class="escolhido clicado" name="checkmark-sharp"></ion-icon>
                     </div>
                 </li>`;
             }
@@ -187,12 +183,23 @@ const abreAside = () => document.querySelector(".fundo").classList.remove("escon
 
 const fechaAside = () => document.querySelector(".fundo").classList.add("esconde");
 //Selecionando visibilidade e contatos
+
+const paraQuem = () =>  {
+    if(tipo()==='private_message'){
+        return "reservadamente";
+    }else{
+        return "público";
+    }
+}
+
 function mudaAVisibilidade(elemento){
     const addClasse = document.querySelectorAll('.listaDaVisibilidade .escolhido');
     for(let i = 0;i<addClasse.length;i++){
         addClasse[i].classList.add('clicado');
     }
     elemento.querySelector('.escolhido').classList.remove('clicado');
+    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem()})`
+
 }
 function mudaOContato(elemento){
     const addClasse = document.querySelectorAll('.contatos .escolhido');
@@ -205,11 +212,5 @@ function mudaOContato(elemento){
     }
     elemento.querySelector('.escolhido').classList.remove('clicado');
     elemento.querySelector('.escolhido').parentNode.classList.add('escolhoVoce');
-    let paraQuem;
-    if(tipo()==='private_message'){
-        paraQuem = "reservadamente";
-    }else{
-        paraQuem = "público";
-    }
-    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem})`
+    document.querySelector('.paraQuem').innerHTML = `Enviando para ${conteudoDosContatos.querySelector('.escolhoVoce p').innerHTML} (${paraQuem()})`
 }

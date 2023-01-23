@@ -54,6 +54,7 @@ span{
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
+    word-wrap: break-word;
 }
 span.hora{
     color:#AAAAAA;
@@ -91,6 +92,9 @@ footer div{
     text-align: left;
     margin-left: 20px;
     margin-bottom: 20px;
+    word-wrap: break-word;
+    text-overflow:ellipsis;
+    white-space: nowrap;    
 }
 footer ion-icon{
     width: 26px;
@@ -192,7 +196,7 @@ aside li:hover{
 .contatos div{
     max-height:fit-content;
 }
-.contatos p{
+.listaDaVisibilidade p,.contatos p{
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -228,13 +232,14 @@ aside li:hover{
 }
 .escolhido{
     color:#28BB25;
-    width: 19px;
-    height: 15px;
+    min-width: 19px;
+    min-height: 15px;
     position: absolute;
     right: 9px;
 }
 .participantes p{
+    width: 70%;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow:ellipsis;
 }

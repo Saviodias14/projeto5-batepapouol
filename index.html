@@ -12,23 +12,23 @@
     <div class="container-principal">
          <header>
              <img src="./img/logo 1.png" alt="Logo do bate-papo UOL">
-             <ion-icon onclick="abreAside()" name="people"></ion-icon>
+             <ion-icon data-test="open-participants" onclick="abreAside()" name="people"></ion-icon>
          </header>
          <ul class="mensagens"></ul>
     
          <footer>
             <div>
-                <input type="text" placeholder="Escreva aqui...">
-                <ion-icon onclick="enviaMensagem()" id="campo" name="paper-plane-outline"></ion-icon>
+                <input data-test="input-message" type="text" placeholder="Escreva aqui...">
+                <ion-icon data-test="send-menssage" onclick="enviaMensagem()" id="campo" name="paper-plane-outline"></ion-icon>
             </div>
-            <p class="paraQuem">Enviando para Todos (público)</p>
+            <p  data-test="recipient" class="paraQuem">Enviando para Todos (público)</p>
          </footer>
          <div  class="fundo esconde">
-            <div onclick="fechaAside()" class="escondeAside"></div>
+            <div  data-test="overlay" onclick="fechaAside()" class="escondeAside"></div>
             <aside>
                 <div class="topoDoAside"> <p>Escolha um contato<br> para enviar mensagem:</p></div>
                 <ul class="contatos">
-                    <li class="participantes escolhoVoce">
+                    <li data-test="all" class="participantes escolhoVoce">
                         <div onclick="mudaOContato(this)" class="dadosAside todos">
                             <ion-icon class="iconeTodos" name="people"></ion-icon>
                             <p>Todos</p>
@@ -38,18 +38,18 @@
                 </ul>
                 <div class="visibilidade"><p>Escolha a visibilidade:</p></div>
                 <ul class="listaDaVisibilidade">
-                    <li>
+                    <li data-test="public">
                         <div onclick="mudaAVisibilidade(this)" class="dadosAside">
                             <ion-icon class="iconeVisibilidade" name="lock-open"></ion-icon>
                             <p>Público</p>
-                            <ion-icon class="escolhido" name="checkmark-sharp"></ion-icon>
+                            <ion-icon data-test="check" class="escolhido" name="checkmark-sharp"></ion-icon>
                         </div>
                     </li>
-                    <li>
+                    <li data-test="private">
                         <div onclick="mudaAVisibilidade(this)" class="dadosAside">
                             <ion-icon class="iconeVisibilidade" name="lock-open"></ion-icon>
                             <p>Reservadamente</p>
-                            <ion-icon class="escolhido clicado" name="checkmark-sharp"></ion-icon>
+                            <ion-icon data-test="check" class="escolhido clicado" name="checkmark-sharp"></ion-icon>
                         </div>
                     </li>
                 </ul>
